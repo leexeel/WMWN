@@ -80,8 +80,26 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     //printf("procesam pachet\n");
     //print_packet_info(packet, *header);
     cap_packet_counter++;
+    int8_t rssi=0;
     if(header!=0 && packet!=0){
-        printf("Lungime header:%d Lungime captura:%d",header->len, header->caplen);
+        printf("Lungime header:%d Lungime captura:%d\n",header->len, header->caplen);
+        
+        int status=0, next_arg_index=0;
+        struct ieee80211_radiotap_header *xheader=(struct ieee80211_radiotap_header *)packet;
+        struct ieee80211_radiotap_iterator iterator;
+        if(ieee80211_radiotap_iterator_init(&iterator,xheader,len)){
+            return status;
+        }
+        status=-1;
+        do{
+            next_arg_index=ieee80211_radiotap_iterator_next(&iterator);        
+            if(iterator.this_arg_index==IEEE80211_RADIOTAP_DBM_ANTSIGNAL){
+                rssi=*iterator.this_arg;                        
+                status=0;
+                break;           
+            }
+        }while(next_arg_index>=0);
+        printf("RSSI:%i",rssi);
     } 
     else {
         printf("Eroare la captura ...");
