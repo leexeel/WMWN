@@ -26,5 +26,5 @@ enum ieee80211_management_subtype
     Reserved2 = 15
 };
 
-const char* fc_type = {"Management","Control","Data","Extension"};
+const char* fc_type[] = {"Management","Control","Data","Extension"};
 
