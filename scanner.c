@@ -105,7 +105,7 @@ void get_radio_parameters(const u_char *packet, int len)
     int8_t rssi_dbm,rssi_db,noise_dbm,noise_db;
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
     struct ieee80211_radiotap_iterator iterator;
-    status = ieee80211_radiotap_iterator_init(&iterator, header->len);
+    status = ieee80211_radiotap_iterator_init(&iterator, len);
     printf("Status iterator init:%i\n", status);
     status = -1;
     do
