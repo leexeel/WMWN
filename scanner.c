@@ -162,6 +162,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
             //printf("FC: %04x %02x %02x\n",mgmt_frame->fc,mgmt_frame->fc[0],mgmt_frame->fc[1]);
             printf("FC: %02x %02x\n", mgmt_frame->fc[0], mgmt_frame->fc[1]);
 
+            int version = mgmt_frame-fc[0] & 0x03; //trebuie sa fie 0 tot timpul
             int frame_type = mgmt_frame->fc[0] & 0x0C; //masca 00001100 extrage tipul
             frame_type = frame_type >> 2;
             int frame_subtype = mgmt_frame->fc[0] >> 4; //subtip
@@ -169,8 +170,13 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
             //int direction = mgmt_frame->fc[1] & 0x03; // masca 11000000 extrage ToDS/FromDS
             int direction = mgmt_frame->fc[1] >> 6; // masca 11000000 extrage ToDS/FromDS
             //rd.direction = direction;
+            if(version > 0)
+            {
+                printf("cauta alta varianta #####################################################################################################");
+            }
+            printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n",version,frame_type,frame_subtype,direction);
 
-            printf("Frame: %d Subtip: %d Directie: %d\n",frame_type,frame_subtype,direction);
+
         }
     }
 }
