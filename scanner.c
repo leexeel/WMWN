@@ -7,6 +7,8 @@
 #include <signal.h>
 #include "radiotap-parser.h"
 
+#include "scanner.h"
+
 pcap_t *handle;
 char *adapter = (char *)"mon0"; //placa wireless in mod monitorizare
 int maxIndexLoop;               // numarul maxim de scanari
@@ -175,7 +177,20 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                 printf("cauta alta varianta #####################################################################################################");
             }
             printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n",version,frame_type,frame_subtype,direction);
-
+            switch (frame_type)
+            {
+            case Management:
+                printf("Frame type - Management ============================================================================================")
+                break;
+            case Control:
+                break;
+            case Data:
+                break;
+            case Extension:
+                break;
+            default:
+                break;
+            }
 
         }
     }
