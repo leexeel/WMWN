@@ -9,6 +9,16 @@ struct mgmt_header_t
     uint8_t bssid[6];  /* 6 bytes */
     uint16_t seq_ctrl; /* 2 bytes */
 };
+struct mgmt_header_t_adhoc
+{
+    uint8_t fc[2];     /* 2 bytes */
+    uint16_t duration; /* 2 bytes */
+    uint8_t da[6];     /* 6 bytes */
+    uint8_t sa[6];     /* 6 bytes */
+    uint8_t bssid[6];  /* 6 bytes */
+    uint16_t seq_ctrl; /* 2 bytes */
+    uint8_t ra[6];     /* 2 bytes */
+};
 
 enum ieee80211_frame_type
 {
@@ -69,7 +79,8 @@ enum FromToDS
 {
     Adhoc = 0,
     FromDS = 1,
-    ToDS = 2
+    ToDS = 2,
+    WDS = 3
 };
 
 struct raw_data {
