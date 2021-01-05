@@ -122,19 +122,19 @@ void get_radio_parameters(const u_char *packet, int len)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
-            printf("RSSI DBM:%i\n", rssi_dbm);
+            //printf("RSSI DBM:%i\n", rssi_dbm);
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
             noise_dbm = *iterator.this_arg;
-            printf("Noise DBM:%i\n", noise_dbm);
+            //printf("Noise DBM:%i\n", noise_dbm);
             break;
         case IEEE80211_RADIOTAP_DB_ANTSIGNAL:
             rssi_db = *iterator.this_arg;
-            printf("RSSI DB:%i\n", rssi_db);
+            //printf("RSSI DB:%i\n", rssi_db);
             break;
         case IEEE80211_RADIOTAP_DB_ANTNOISE:
             noise_db = *iterator.this_arg;
-            printf("Noise DB:%i\n", noise_db);
+            //printf("Noise DB:%i\n", noise_db);
             break;
         default:
             break;
@@ -147,7 +147,7 @@ void get_frame_parameters(const u_char *packet, int len)
     struct ieee80211_radiotap_header *radiotap = (struct ieee80211_radiotap_header *)packet;
     struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
 
-    printf("SA MAC:0x%02x\n", mgmt_frame->sa[0]);
+    printf("SA MAC:%02x%02x%02x%02x%02x%02x\n", mgmt_frame->sa[0],mgmt_frame->sa[1],mgmt_frame->sa[2],mgmt_frame->sa[3],mgmt_frame->sa[4],mgmt_frame->sa[5]);
 }
 
 void initChannelsList()
