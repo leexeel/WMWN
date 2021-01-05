@@ -99,7 +99,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     if (header != 0 && packet != 0)
     {
         get_radio_parameters(packet, header->len);
-        get_frame_parameters(packet, header->len);
+        get_frame_parameters(packet, header);
     }
     else
     {
@@ -142,9 +142,17 @@ void get_radio_parameters(const u_char *packet, int len)
     } while (next_arg_index >= 0);
 }
 
-void get_frame_parameters(const u_char *packet, int len)
+void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header)
 {
+    if (header->caplen < sizeof(struct ieee80211_radiotap_header))
+    {
+        printf("Problema 1 ---------------------------------------------------");
+    }
     struct ieee80211_radiotap_header *radiotap = (struct ieee80211_radiotap_header *)packet;
+    if (header->caplen < radiotap->it_len + sizeof(struct mgmt_header_t))
+    {
+        printf("Problema 2 ---------------------------------------------------");
+    }
     struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
 
     printf("SA MAC:x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n", mgmt_frame->da[0],mgmt_frame->da[1],mgmt_frame->da[2],mgmt_frame->da[3],mgmt_frame->da[4],mgmt_frame->da[5],mgmt_frame->sa[0],mgmt_frame->sa[1],mgmt_frame->sa[2],mgmt_frame->sa[3],mgmt_frame->sa[4],mgmt_frame->sa[5]);
