@@ -96,3 +96,4 @@ int channelsNumber;             //numarul de canale suportate
 int currentChannel;             //canalul pe care este setata placa wireless
 int cap_packet_counter = 0;     //numarul de pachete capturate
 int breakwhileloop = 1;         //folosit la intreruperea buclei while din main()
+int direction;                  //valorile ToDS/FromDS
