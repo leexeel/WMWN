@@ -87,7 +87,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
         int status=0, next_arg_index=0;
         struct ieee80211_radiotap_header *xheader=(struct ieee80211_radiotap_header *)packet;
 
-        printf("IT_VERSION:%i",xheader->it_version);
+        printf("IT_VERSION:%i it_pad:%i it_len:%i it_present:%i\n",xheader->it_version,xheader->it_pad,xheader->it_len,xheader->it_present);
 
         /*
         struct ieee80211_radiotap_iterator iterator;
