@@ -159,7 +159,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
         {
             struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
             printf("MAC: %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x\n", mgmt_frame->da[0],mgmt_frame->da[1],mgmt_frame->da[2],mgmt_frame->da[3],mgmt_frame->da[4],mgmt_frame->da[5],mgmt_frame->sa[0],mgmt_frame->sa[1],mgmt_frame->sa[2],mgmt_frame->sa[3],mgmt_frame->sa[4],mgmt_frame->sa[5],mgmt_frame->bssid[0],mgmt_frame->bssid[1],mgmt_frame->bssid[2],mgmt_frame->bssid[3],mgmt_frame->bssid[4],mgmt_frame->bssid[5]);
-            printf(FC: %04x %02x %02x\n,mgmt_frame->fc,mgmt_frame->fc[0],mgmt_frame->fc[1]);
+            printf("FC: %04x %02x %02x\n",mgmt_frame->fc,mgmt_frame->fc[0],mgmt_frame->fc[1]);
         }
     }
     
