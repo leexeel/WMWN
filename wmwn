@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "Oprim serviciile wireless..."
+sudo nmcli d disconnect iface wlan0
+sudo service avahi-daemon stop
+sudo stop network-manager
+sudo pkill wpa_supplicant
+sudo pkill dhclient
+echo "Setam placa de retea wireless in mod monitorizare ..."
+sudo iw phy phy0 interface add mon0 type monitor
+sudo iw dev wlan0 del
+sudo ifconfig mon0 up
+echo "Pornim sezorul wireless ..."
+sudo ./wrlsScan $1 $2
+echo "Setam placa de retea wireless in mod standard ..."
+sudo iw dev mon0 del
+sudo iw phy phy0 interface add wlan0 type managed
+echo "Pornim serviciile wireless ..."
+sudo start network-manager
+sudo service avahi-daemon start
