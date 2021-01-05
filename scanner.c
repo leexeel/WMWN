@@ -84,13 +84,11 @@ void SnifferTerminate(int signum)
 
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
-    //printf("procesam pachet\n");
-    //print_packet_info(packet, *header);
     cap_packet_counter++;
     if (header != 0 && packet != 0)
     {
-        //printf("Lungime header:%d Lungime captura:%d\n", header->len, header->caplen);
         get_radio_parameters(packet, header->len);
+        get_frame_parameters(packet, header->len);
     }
     else
     {
@@ -104,14 +102,11 @@ void get_radio_parameters(const u_char *packet, int len)
     int status = 0, next_arg_index = 0;
     int8_t rssi_dbm,rssi_db,noise_dbm,noise_db;
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
-    printf("===============================%x",header->it_present);
     struct ieee80211_radiotap_iterator iterator;
     status = ieee80211_radiotap_iterator_init(&iterator, header, len);
     do
     {
-        printf("INDEX before:%i",next_arg_index);
         next_arg_index = ieee80211_radiotap_iterator_next(&iterator);
-        printf("INDEX after:%i\n",next_arg_index);
         switch (iterator.this_arg_index)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
@@ -134,6 +129,15 @@ void get_radio_parameters(const u_char *packet, int len)
             break;
         }
     } while (next_arg_index >= 0);
+}
+
+void get_frame_parameters(const u_char *packet, int len)
+{
+    struct radiotap_header *radiotap = (struct radiotap_header *) (packet);
+    struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *) (packet + radiotap->it_len);
+
+    printf("SA MAC:%u\n",mgmt_frame->sa);
+
 }
 
 void initChannelsList()
