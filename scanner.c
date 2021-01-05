@@ -168,7 +168,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
 
             //int direction = mgmt_frame->fc[1] & 0x03; // masca 11000000 extrage ToDS/FromDS
             int direction = mgmt_frame->fc[1] >> 6; // masca 11000000 extrage ToDS/FromDS
-            rd.direction = direction;
+            //rd.direction = direction;
 
             printf("Frame: %d Subtip: %d Directie: %d",frame_type,frame_subtype,direction);
         }
