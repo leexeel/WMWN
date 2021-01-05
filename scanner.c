@@ -8,6 +8,7 @@
 #include "radiotap-parser.h"
 
 #include "scanner.h"
+#include "dbaccess.h"
 
 pcap_t *cardInit(char *dev);
 int SnifferStart(pcap_t *handle);
@@ -20,6 +21,7 @@ int getChannelsNumber(char *tmpString, int tmpSize);
 void SIGINThandler(int sigalnr);
 void SnifferTerminate(int signum);
 void initRawData();
+void addRowData();
 
 pcap_t *cardInit(char *dev)
 {
@@ -90,7 +92,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     {
         printf("Eroare la captura ...");
     }
-    return;
+    addRowData();
 }
 
 void get_radio_parameters(const u_char *packet, int len)
@@ -358,6 +360,52 @@ void initRawData()
     strcpy(rd.ssid, "");
     strcpy(rd.summaryHash, "");
     rd.rssi = 0;
+}
+
+void addRowData()
+{
+
+    char currentChannelChar[4];
+    sprintf(currentChannelChar, "%d", currentChannel);
+    char apCurrentChannelChar[4];
+    sprintf(apCurrentChannelChar, "%d", rd.apChannel);
+    //printf("rssi numeric1 %d\n",rd.rssi );
+    char rssiChar[4];
+    sprintf(rssiChar, "%d", rd.rssi);
+    //printf("rssi numeric %d - rssi caracter %s\n", rd.rssi, rssiChar);
+
+    //generam comanda pentru mysql
+    char query[1024] = "";
+    strcat(query, "insert into rowData values (0,NOW(),\"");
+    strcat(query, rd.frameType);
+    strcat(query, "\",\"");
+    strcat(query, rd.frameSubtype);
+    strcat(query, "\",);
+    strcat(query, currentChannelChar);
+    strcat(query, ",");
+    //strcat(query, apCurrentChannelChar);
+    strcat(query, 0);
+    strcat(query, ",\"");
+    strcat(query, rd.da);
+    strcat(query, "\",\"");
+    strcat(query, rd.sa);
+    strcat(query, "\",\"");
+    strcat(query, rd.bssid);
+    strcat(query, "\",\"");
+    strcat(query, rd.ssid);
+    strcat(query, "\",\"");
+    strcat(query, rd.summaryHash);
+    strcat(query, "\",");
+    strcat(query, rssiChar);
+    strcat(query, ")");
+    //strcat(query,") ON DUPLICATE KEY UPDATE timestamp=NOW()");
+    //printf("trimis in mysql %s\n", query);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+        exit(1);
+    }
 }
 
 int main(int argc, char *argv[])

@@ -7,9 +7,9 @@
 
 void mysqlServerConn(int operatiune){
     if(operatiune == 1){
-        char *server = "localhost";
-        char *user = "root";
-        char *password = ""; /* set me first */
+        char *server = "192.168.10.66";
+        char *user = "senzor";
+        char *password = "senzor@db1234";
         char *database = "serverDB";
         connServer = mysql_init(NULL);
         if (!mysql_real_connect(connServer, server, user, password, database, 0, NULL, 0)){
