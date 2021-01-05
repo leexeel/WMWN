@@ -102,34 +102,34 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
 void get_radio_parameters(const u_char *packet, int len)
 {
     int status = 0, next_arg_index = 0;
-
+    int8_t rssi_dbm,rssi_db,noise_dbm,noise_db;
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
     struct ieee80211_radiotap_iterator iterator;
-    status = ieee80211_radiotap_iterator_init(&iterator, header, header->len);
+    status = ieee80211_radiotap_iterator_init(&iterator, header->len);
     printf("Status iterator init:%i\n", status);
     status = -1;
     do
     {
         next_arg_index = ieee80211_radiotap_iterator_next(&iterator);
-        switch (iterator.this_arg_inde)
+        switch (iterator.this_arg_index)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
-            int8_t rssi_dbm = *iterator.this_arg;
+            rssi_dbm = *iterator.this_arg;
             status = 0;
             printf("RSSI DBM:%i\n", rssi_dbm);
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
-            int8_t noise_dbm = *iterator.this_arg;
+            noise_dbm = *iterator.this_arg;
             status = 0;
             printf("Noise DBM:%i\n", noise_dbm);
             break;
         case IEEE80211_RADIOTAP_DB_ANTSIGNAL:
-            int8_t rssi_db = *iterator.this_arg;
+            rssi_db = *iterator.this_arg;
             status = 0;
             printf("RSSI DB:%i\n", rssi_db);
             break;
         case IEEE80211_RADIOTAP_DB_ANTNOISE:
-            int8_t noise_db = *iterator.this_arg;
+            noise_db = *iterator.this_arg;
             status = 0;
             printf("Noise DB:%i\n", noise_db);
             break;
