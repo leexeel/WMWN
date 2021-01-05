@@ -32,7 +32,7 @@ int SnifferStart(pcap_t *handle);
 int SnifferClose(pcap_t *handle);
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void get_radio_parameters(const u_char *packet, int len);
-void get_frame_parameters(const u_char *packet, int len);
+void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header)
 int getChannel(char *tmpString, int tmpSize);
 int getChannelsNumber(char *tmpString, int tmpSize);
 void SIGINThandler(int sigalnr);
