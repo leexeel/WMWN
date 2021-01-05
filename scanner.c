@@ -364,11 +364,11 @@ void initRawData()
 
 void addRowData()
 {
-
+    printf("Am intrat in addRowData\n");
     char currentChannelChar[4];
     sprintf(currentChannelChar, "%d", currentChannel);
     char apCurrentChannelChar[4];
-    sprintf(apCurrentChannelChar, "%d", rd.apChannel);
+    //sprintf(apCurrentChannelChar, "%d", rd.apChannel);
     //printf("rssi numeric1 %d\n",rd.rssi );
     char rssiChar[4];
     sprintf(rssiChar, "%d", rd.rssi);
@@ -396,10 +396,11 @@ void addRowData()
     strcat(query, "\",\"");
     strcat(query, rd.summaryHash);
     strcat(query, "\",");
-    strcat(query, rssiChar);
+    //strcat(query, rssiChar);
+    strcat(query, "0");
     strcat(query, ")");
     //strcat(query,") ON DUPLICATE KEY UPDATE timestamp=NOW()");
-    //printf("trimis in mysql %s\n", query);
+    printf("trimis in mysql %s\n", query);
 
     if (mysql_query(conn, query))
     {
