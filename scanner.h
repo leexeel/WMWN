@@ -89,9 +89,9 @@ struct raw_data {
     int direction;
 	int channel;
 	int apChannel;
-    char da[13];
-    char sa[13];
-	char bs[13];
+    char da[19];
+    char sa[19];
+	char bs[19];
 	char ssid[32];
 	char summaryHash[45];
 	int rssi;
