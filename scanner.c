@@ -147,7 +147,7 @@ void get_frame_parameters(const u_char *packet, int len)
     struct ieee80211_radiotap_header *radiotap = (struct ieee80211_radiotap_header *)packet;
     struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
 
-    printf("SA MAC:%d\n", mgmt_frame->sa);
+    printf("SA MAC:%u\n", mgmt_frame->sa);
 }
 
 void initChannelsList()
