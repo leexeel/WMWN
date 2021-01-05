@@ -1,0 +1,1 @@
+void mysqlServerConn(int operatiune); //conexiune la server
