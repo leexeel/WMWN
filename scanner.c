@@ -125,7 +125,7 @@ void get_radio_parameters(const u_char *packet, int len)
             rssi_db = *iterator.this_arg;
             printf("RSSI DB:%i\n", rssi_db);
             break;
-        case IEEE80211_RADIOTAP_DB_TX_ATTENUATION:
+        case IEEE80211_RADIOTAP_CHANNEL:
             noise_db = *iterator.this_arg;
             printf("Noise DB:%i\n", noise_db);
             break;
