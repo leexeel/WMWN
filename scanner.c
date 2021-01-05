@@ -19,6 +19,7 @@ int getChannel(char *tmpString, int tmpSize);
 int getChannelsNumber(char *tmpString, int tmpSize);
 void SIGINThandler(int sigalnr);
 void SnifferTerminate(int signum);
+void initRawData();
 
 pcap_t *cardInit(char *dev)
 {
@@ -327,10 +328,10 @@ void SIGINThandler(int sigalnr)
 
 void initRawData()
 {
-    strcpy(rd.typeFrame,"");
-    rd.direction=0;
-    rd.channel=0;
-    rd.apChannel=0;
+    strcpy(rd->typeFrame,"");
+    rd->direction=0;
+    rd->channel=0;
+    rd->apChannel=0;
     strcpy(rd.da,"");
     strcpy(rd.sa,"");
     strcpy(rd.bs,"");
