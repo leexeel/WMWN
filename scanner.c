@@ -19,7 +19,7 @@ int breakwhileloop = 1;         //folosit la intreruperea buclei while din main(
 
 struct mgmt_header_t
 {
-    uint16_t fc;       /* 2 bytes */
+    uint8_t fc[2];       /* 2 bytes */
     uint16_t duration; /* 2 bytes */
     uint8_t da[6];     /* 6 bytes */
     uint8_t sa[6];     /* 6 bytes */
