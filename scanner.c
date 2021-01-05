@@ -180,7 +180,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
             switch (frame_type)
             {
             case Management:
-                printf("Frame type - Management ============================================================================================")
+                printf("Frame type - Management ============================================================================================");
                 break;
             case Control:
                 break;
