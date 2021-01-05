@@ -9,26 +9,6 @@
 
 #include "scanner.h"
 
-pcap_t *handle;
-char *adapter = (char *)"mon0"; //placa wireless in mod monitorizare
-int maxIndexLoop;               // numarul maxim de scanari
-int scanningTime;               // periaoada de scanare pentru un canal, in secunde
-int *channelsArray;             //lista canalelor suportate
-int channelsNumber;             //numarul de canale suportate
-int currentChannel;             //canalul pe care este setata placa wireless
-int cap_packet_counter = 0;     //numarul de pachete capturate
-int breakwhileloop = 1;         //folosit la intreruperea buclei while din main()
-
-struct mgmt_header_t
-{
-    uint8_t fc[2];     /* 2 bytes */
-    uint16_t duration; /* 2 bytes */
-    uint8_t da[6];     /* 6 bytes */
-    uint8_t sa[6];     /* 6 bytes */
-    uint8_t bssid[6];  /* 6 bytes */
-    uint16_t seq_ctrl; /* 2 bytes */
-};
-
 pcap_t *cardInit(char *dev);
 int SnifferStart(pcap_t *handle);
 int SnifferClose(pcap_t *handle);
@@ -98,6 +78,7 @@ void SnifferTerminate(int signum)
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
     cap_packet_counter++;
+    initRawData();
     if (header != 0 && packet != 0)
     {
         get_radio_parameters(packet, header->len);
@@ -124,7 +105,7 @@ void get_radio_parameters(const u_char *packet, int len)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
-            //printf("RSSI DBM:%i\n", rssi_dbm);
+            rd.ssid = rssi_dbm;
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
             noise_dbm = *iterator.this_arg;
@@ -342,6 +323,20 @@ void SIGINThandler(int sigalnr)
     //este folosita la intreruperea unei bucle while
     //printf("a trecut pe aici SIGINT\n");
     breakwhileloop = 0;
+}
+
+void initRawData()
+{
+    strcpy(rd.typeFrame,"");
+    rd.direction=0;
+    rd.channel=0;
+    rd.apChannel=0;
+    strcpy(rd.da,"");
+    strcpy(rd.sa,"");
+    strcpy(rd.bs,"");
+    strcpy(rd.ssid,"");
+    strcpy(rd.summaryHash,"");
+    rd.rssi=0;
 }
 
 int main(int argc, char *argv[])
