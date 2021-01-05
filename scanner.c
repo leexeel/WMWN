@@ -328,10 +328,10 @@ void SIGINThandler(int sigalnr)
 
 void initRawData()
 {
-    strcpy(rd->typeFrame,"");
-    rd->direction=0;
-    rd->channel=0;
-    rd->apChannel=0;
+    strcpy(rd.typeFrame,"");
+    rd.direction=0;
+    rd.channel=0;
+    rd.apChannel=0;
     strcpy(rd.da,"");
     strcpy(rd.sa,"");
     strcpy(rd.bs,"");
