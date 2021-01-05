@@ -165,9 +165,8 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
             int frame_type = mgmt_frame->fc[0] & 0x0C; //masca 00001100 extrage tipul
             frame_type = frame_type >> 2;
             int frame_subtype = mgmt_frame->fc[0] >> 4; //subtip
-            direction = mgmt_frame->fc[1] & 0x03;
-            //direction = mgmt_frame->fc[1] >> 6;     // masca 11000000 extrage ToDS/FromDS
-            rd.direction = direction;
+            rd.direction = mgmt_frame->fc[1] & 0x03;
+            //rd.direction = mgmt_frame->fc[1] >> 6;     // masca 11000000 extrage ToDS/FromDS
             if (version > 0)
             {
                 printf("cauta alta varianta #####################################################################################################");
@@ -376,15 +375,12 @@ void initRawData()
 
 void addRowData()
 {
-    printf("Am intrat in addRowData\n");
     char currentChannelChar[4];
     sprintf(currentChannelChar, "%d", currentChannel);
-    char apCurrentChannelChar[4];
+    //char apCurrentChannelChar[4];
     //sprintf(apCurrentChannelChar, "%d", rd.apChannel);
-    //printf("rssi numeric1 %d\n",rd.rssi );
     char rssiChar[4];
     sprintf(rssiChar, "%d", rd.rssi);
-    //printf("rssi numeric %d - rssi caracter %s\n", rd.rssi, rssiChar);
     char directionChar[4];
     sprintf(directionChar, "%d", direction);
 
@@ -412,19 +408,17 @@ void addRowData()
     strcat(query, "\",\"");
     strcat(query, rd.summaryHash);
     strcat(query, "\",");
-    //strcat(query, rssiChar);
-    strcat(query, "0");
+    strcat(query, rssiChar);
+    //strcat(query, "0");
     strcat(query, ")");
     //strcat(query,") ON DUPLICATE KEY UPDATE timestamp=NOW()");
-    printf("trimis in mysql %s\n", query);
+    //printf("trimis in mysql %s\n", query);
 
     if (mysql_query(connServer, query))
     {
-        printf("aici1");
         fprintf(stderr, "%s\n", mysql_error(connServer));
         exit(1);
     }
-    printf("date introduse");
 }
 
 int main(int argc, char *argv[])
