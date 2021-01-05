@@ -82,9 +82,9 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     cap_packet_counter++;
     if(header!=0 && packet!=0){
         printf("Lungime header:%d Lungime captura:%d",header->len, header->caplen);
-    } else {
+    } 
+    else {
         printf("Eroare la captura ...");
-    }
     }
     return;
 }
