@@ -384,13 +384,13 @@ void addRowData()
     strcat(query, currentChannelChar);
     strcat(query, ",");
     //strcat(query, apCurrentChannelChar);
-    strcat(query, 0);
+    strcat(query, "0");
     strcat(query, ",\"");
     strcat(query, rd.da);
     strcat(query, "\",\"");
     strcat(query, rd.sa);
     strcat(query, "\",\"");
-    strcat(query, rd.bssid);
+    strcat(query, rd.bs);
     strcat(query, "\",\"");
     strcat(query, rd.ssid);
     strcat(query, "\",\"");
