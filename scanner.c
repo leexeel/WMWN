@@ -109,7 +109,7 @@ void get_radio_parameters(const u_char *packet, int len)
     printf("Status iterator init:%i\n", status);
     do
     {
-        printf("INDEX:%i",next_arg_index);
+        printf("INDEX:%i\n",next_arg_index);
         next_arg_index = ieee80211_radiotap_iterator_next(&iterator);
         switch (iterator.this_arg_index)
         {
