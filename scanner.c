@@ -106,7 +106,7 @@ void get_radio_parameters(const u_char *packet, int len)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
-            rd.ssid = rssi_dbm;
+            rd.rssi = rssi_dbm;
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
             noise_dbm = *iterator.this_arg;
