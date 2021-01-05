@@ -406,7 +406,7 @@ void addRowData()
     //strcat(query,") ON DUPLICATE KEY UPDATE timestamp=NOW()");
     printf("trimis in mysql %s\n", query);
 
-    if (mysql_query(conn, query))
+    if (mysql_query(connServer, query))
     {
         printf("aici1");
         fprintf(stderr, "%s\n", mysql_error(conn));
