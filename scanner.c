@@ -107,30 +107,26 @@ void get_radio_parameters(const u_char *packet, int len)
     struct ieee80211_radiotap_iterator iterator;
     status = ieee80211_radiotap_iterator_init(&iterator, header, len);
     printf("Status iterator init:%i\n", status);
-    status = -1;
     do
     {
+        printf("INDEX:%i",next_arg_index);
         next_arg_index = ieee80211_radiotap_iterator_next(&iterator);
         switch (iterator.this_arg_index)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
-            status = 0;
             printf("RSSI DBM:%i\n", rssi_dbm);
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
             noise_dbm = *iterator.this_arg;
-            status = 0;
             printf("Noise DBM:%i\n", noise_dbm);
             break;
         case IEEE80211_RADIOTAP_DB_ANTSIGNAL:
             rssi_db = *iterator.this_arg;
-            status = 0;
             printf("RSSI DB:%i\n", rssi_db);
             break;
         case IEEE80211_RADIOTAP_DB_ANTNOISE:
             noise_db = *iterator.this_arg;
-            status = 0;
             printf("Noise DB:%i\n", noise_db);
             break;
         default:
