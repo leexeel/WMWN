@@ -155,11 +155,11 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
         else
         {
             struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
-            printf("MAC: %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x\n", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5], mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5], mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
-            printf("FC: %02x %02x\n", mgmt_frame->fc[0], mgmt_frame->fc[1]);
-            sprintf(rd.bs, "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x", mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
-            sprintf(rd.da, "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5]);
-            sprintf(rd.sa, "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x", mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5]);
+            //printf("MAC: %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x\n", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5], mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5], mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
+            //printf("FC: %02x %02x\n", mgmt_frame->fc[0], mgmt_frame->fc[1]);
+            sprintf(rd.bs, "%02x:%02x:%02x:%02x:%02x:%02x", mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
+            sprintf(rd.da, "%02x:%02x:%02x:%02x:%02x:%02x", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5]);
+            sprintf(rd.sa, "%02x:%02x:%02x:%02x:%02x:%02x", mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5]);
 
             int version = mgmt_frame->fc[0] & 0x03;    //trebuie sa fie 0 tot timpul
             int frame_type = mgmt_frame->fc[0] & 0x0C; //masca 00001100 extrage tipul
@@ -171,11 +171,11 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
             {
                 printf("cauta alta varianta #####################################################################################################");
             }
-            printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n", version, frame_type, frame_subtype, direction);
+            //printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n", version, frame_type, frame_subtype, direction);
             switch (frame_type)
             {
             case Management:
-                printf("Frame type - Management ============================================================================================\n");
+                //printf("Frame type - Management ============================================================================================\n");
                 strcpy(rd.frameType, "Management");
                 switch (frame_subtype)
                 {
@@ -193,17 +193,17 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                 }
                 break;
             case Control:
-                printf("Frame type - Control ============================================================================================\n");
+                //printf("Frame type - Control ============================================================================================\n");
                 strcpy(rd.frameType, "Control");
                 strcpy(rd.frameSubtype, "-");
                 break;
             case Data:
-                printf("Frame type - Data ============================================================================================\n");
+                //printf("Frame type - Data ============================================================================================\n");
                 strcpy(rd.frameType, "Data");
                 strcpy(rd.frameSubtype, "-");
                 break;
             case Extension:
-                printf("Frame type - Extension ============================================================================================\n");
+                //printf("Frame type - Extension ============================================================================================\n");
                 strcpy(rd.frameType, "Extension");
                 strcpy(rd.frameSubtype, "-");
                 break;
