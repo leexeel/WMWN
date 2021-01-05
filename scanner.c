@@ -5,18 +5,16 @@
 #include <errno.h>
 #include <unistd.h>
 #include <signal.h>
-#include </usr/src/linux-headers-4.4.0-130/include/net/ieee80211_radiotap.h>
-#include </usr/src/linux-headers-4.4.0-148/include/asm-generic/unaligned.h>
 
 pcap_t *handle;
-char *adapter=(char *)"mon0"; //placa wireless in mod monitorizare
-int maxIndexLoop;
-int scanningTime;
-int *channelsArray; //lista canalelor suportate
-int channelsNumber; //numarul de canale suportate
-int currentChannel; //canalul pe care este setata placa wireless
-int capture_packet_counter=0;//numarul de pachete capturate
-int breakwhileloop=1; //folosit la intreruperea buclei while din main()
+char *adapter=(char *)"mon0";   //placa wireless in mod monitorizare
+int maxIndexLoop;               // numarul maxim de scanari
+int scanningTime;               // periaoada de scanare pentru un canal, in secunde
+int *channelsArray;             //lista canalelor suportate
+int channelsNumber;             //numarul de canale suportate
+int currentChannel;             //canalul pe care este setata placa wireless
+int capture_packet_counter=0;   //numarul de pachete capturate
+int breakwhileloop=1;           //folosit la intreruperea buclei while din main()
 
 pcap_t * cardInit(char *dev);
 int SnifferStart(pcap_t * handle);
