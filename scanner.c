@@ -17,6 +17,16 @@ int currentChannel;             //canalul pe care este setata placa wireless
 int cap_packet_counter = 0;     //numarul de pachete capturate
 int breakwhileloop = 1;         //folosit la intreruperea buclei while din main()
 
+struct mgmt_header_t
+{
+    u_int16_t fc;       /* 2 bytes */
+    u_int16_t duration; /* 2 bytes */
+    u_int8_t da[6];     /* 6 bytes */
+    u_int8_t sa[6];     /* 6 bytes */
+    u_int8_t bssid[6];  /* 6 bytes */
+    u_int16_t seq_ctrl; /* 2 bytes */
+};
+
 pcap_t *cardInit(char *dev);
 int SnifferStart(pcap_t *handle);
 int SnifferClose(pcap_t *handle);
@@ -101,7 +111,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
 void get_radio_parameters(const u_char *packet, int len)
 {
     int status = 0, next_arg_index = 0;
-    int8_t rssi_dbm,rssi_db,noise_dbm,noise_db;
+    int8_t rssi_dbm, rssi_db, noise_dbm, noise_db;
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
     struct ieee80211_radiotap_iterator iterator;
     status = ieee80211_radiotap_iterator_init(&iterator, header, len);
@@ -137,8 +147,7 @@ void get_frame_parameters(const u_char *packet, int len)
     struct ieee80211_radiotap_header *radiotap = (struct ieee80211_radiotap_header *)packet;
     struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
 
-    printf("SA MAC:%u\n",mgmt_frame->sa);
-
+    printf("SA MAC:%u\n", mgmt_frame->sa);
 }
 
 void initChannelsList()
