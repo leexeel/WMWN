@@ -87,7 +87,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
         int status=0, next_arg_index=0;
         struct ieee80211_radiotap_header *xheader=(struct ieee80211_radiotap_header *)packet;
         struct ieee80211_radiotap_iterator iterator;
-        status = ieee80211_radiotap_iterator_init(&iterator,xheader,header->len)
+        status = ieee80211_radiotap_iterator_init(&iterator,xheader,header->len);
         status=-1;
         do{
             next_arg_index=ieee80211_radiotap_iterator_next(&iterator);        
