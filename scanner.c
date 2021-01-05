@@ -19,12 +19,12 @@ int breakwhileloop = 1;         //folosit la intreruperea buclei while din main(
 
 struct mgmt_header_t
 {
-    u_int16_t fc;       /* 2 bytes */
-    u_int16_t duration; /* 2 bytes */
-    u_int8_t da[6];     /* 6 bytes */
-    u_int8_t sa[6];     /* 6 bytes */
-    u_int8_t bssid[6];  /* 6 bytes */
-    u_int16_t seq_ctrl; /* 2 bytes */
+    uint16_t fc;       /* 2 bytes */
+    uint16_t duration; /* 2 bytes */
+    uint8_t da[6];     /* 6 bytes */
+    uint8_t sa[6];     /* 6 bytes */
+    uint8_t bssid[6];  /* 6 bytes */
+    uint16_t seq_ctrl; /* 2 bytes */
 };
 
 pcap_t *cardInit(char *dev);
