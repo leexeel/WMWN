@@ -110,7 +110,7 @@ void get_radio_parameters(const u_char *packet, int len)
     {
         printf("INDEX:%i\n",next_arg_index);
         next_arg_index = ieee80211_radiotap_iterator_next(&iterator);
-        switch (iterator.this_arg_index)
+        switch (iterator->this_arg_index)
         {
         /*case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
