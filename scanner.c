@@ -409,7 +409,7 @@ void addRowData()
     if (mysql_query(connServer, query))
     {
         printf("aici1");
-        fprintf(stderr, "%s\n", mysql_error(conn));
+        fprintf(stderr, "%s\n", mysql_error(connServer));
         exit(1);
     }
     printf("date introduse");
