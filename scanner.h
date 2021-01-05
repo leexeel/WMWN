@@ -37,6 +37,41 @@ enum ieee80211_management_subtype
     ActionNoAck = 14,
     Reserved2 = 15
 };
+
+/*
+To DS and From DS are both 0
+
+Address 1 = Destination
+Address 2 = Source
+Address 3 = BSSID
+
+To DS field is 1 and From DS field is 0
+
+Address 1 = BSSID
+Address 2 = Source
+Address 3 = Destination
+
+To DS field is 0 and From DS field is 1
+
+Address 1 = Destination
+Address 2 = BSSID
+Address 3 = Source
+
+To DS and From DS are both 1
+
+Address 1 = Receiver
+Address 2 = Transmitter
+Address 3 = Destination
+Address 4 = Source
+*/
+
+enum FromToDS
+{
+    Adhoc = 0;
+    FromDS = 1;
+    ToDS = 2;
+};
+
 struct raw_data {
     char frameType[16];
     char frameSubtype[16];

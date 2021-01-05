@@ -80,6 +80,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
 {
     cap_packet_counter++;
     initRawData();
+    rd.channel = currentChannel;
     if (header != 0 && packet != 0)
     {
         get_radio_parameters(packet, header->len);
@@ -143,40 +144,61 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
         {
             struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
             printf("MAC: %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x - %02x:%02x:%02x:%02x:%02x:%02x\n", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5], mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5], mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
-            //printf("FC: %04x %02x %02x\n",mgmt_frame->fc,mgmt_frame->fc[0],mgmt_frame->fc[1]);
             printf("FC: %02x %02x\n", mgmt_frame->fc[0], mgmt_frame->fc[1]);
+            sprintf(rd.bs, "%.2x%.2x%.2x%.2x%.2x%.2x", mgmt_frame->bssid[0], mgmt_frame->bssid[1], mgmt_frame->bssid[2], mgmt_frame->bssid[3], mgmt_frame->bssid[4], mgmt_frame->bssid[5]);
+            sprintf(rd.da, "%.2x%.2x%.2x%.2x%.2x%.2x", mgmt_frame->da[0], mgmt_frame->da[1], mgmt_frame->da[2], mgmt_frame->da[3], mgmt_frame->da[4], mgmt_frame->da[5]);
+            sprintf(rd.sa, "%.2x%.2x%.2x%.2x%.2x%.2x", mgmt_frame->sa[0], mgmt_frame->sa[1], mgmt_frame->sa[2], mgmt_frame->sa[3], mgmt_frame->sa[4], mgmt_frame->sa[5]);
 
-            int version = mgmt_frame->fc[0] & 0x03; //trebuie sa fie 0 tot timpul
+            int version = mgmt_frame->fc[0] & 0x03;    //trebuie sa fie 0 tot timpul
             int frame_type = mgmt_frame->fc[0] & 0x0C; //masca 00001100 extrage tipul
             frame_type = frame_type >> 2;
             int frame_subtype = mgmt_frame->fc[0] >> 4; //subtip
-
-            //int direction = mgmt_frame->fc[1] & 0x03; // masca 11000000 extrage ToDS/FromDS
-            int direction = mgmt_frame->fc[1] >> 6; // masca 11000000 extrage ToDS/FromDS
-            //rd.direction = direction;
-            if(version > 0)
+            int direction = mgmt_frame->fc[1] & 0x03;
+            int direction = mgmt_frame->fc[1] >> 6;     // masca 11000000 extrage ToDS/FromDS
+            rd.direction = direction;
+            if (version > 0)
             {
                 printf("cauta alta varianta #####################################################################################################");
             }
-            printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n",version,frame_type,frame_subtype,direction);
+            printf("Versiune: %d Frame: %d Subtip: %d Directie: %d\n", version, frame_type, frame_subtype, direction);
             switch (frame_type)
             {
             case Management:
                 printf("Frame type - Management ============================================================================================\n");
+                strcpy(rd.frameType, "Management");
+                switch (frame_subtype)
+                {
+                case ProbeRequest:
+                    strcpy(rd.frameSubtype, "ProbeRequest");
+                    break;
+                case ProbeResponse:
+                    strcpy(rd.frameSubtype, "ProbeResponse");
+                    break;
+                case Beacon:
+                    strcpy(rd.frameSubtype, "Beacon");
+                    break;
+                default:
+                    break;
+                }
                 break;
             case Control:
                 printf("Frame type - Control ============================================================================================\n");
+                strcpy(rd.frameType, "Control");
+                strcpy(rd.frameSubtype, "-");
                 break;
             case Data:
                 printf("Frame type - Data ============================================================================================\n");
+                strcpy(rd.frameType, "Data");
+                strcpy(rd.frameSubtype, "-");
                 break;
             case Extension:
                 printf("Frame type - Extension ============================================================================================\n");
+                strcpy(rd.frameType, "Extension");
+                strcpy(rd.frameSubtype, "-");
                 break;
             default:
                 break;
             }
-
         }
     }
 }
@@ -301,11 +323,8 @@ void setChannel(int tmpchannel)
     {
         //printf("setare canal :%s\n",buffer);
     }
-
     currentChannel = tmpchannel;
-
     pclose(tmpFile);
-
     tmpFile = popen(command2, "r");
     if (tmpFile == NULL)
     {
@@ -328,17 +347,17 @@ void SIGINThandler(int sigalnr)
 
 void initRawData()
 {
-    strcpy(rd.frameType,"");
-    strcpy(rd.frameSubtype,"");
-    rd.direction=0;
-    rd.channel=0;
-    rd.apChannel=0;
-    strcpy(rd.da,"");
-    strcpy(rd.sa,"");
-    strcpy(rd.bs,"");
-    strcpy(rd.ssid,"");
-    strcpy(rd.summaryHash,"");
-    rd.rssi=0;
+    strcpy(rd.frameType, "");
+    strcpy(rd.frameSubtype, "");
+    rd.direction = 0;
+    rd.channel = 0;
+    rd.apChannel = 0;
+    strcpy(rd.da, "");
+    strcpy(rd.sa, "");
+    strcpy(rd.bs, "");
+    strcpy(rd.ssid, "");
+    strcpy(rd.summaryHash, "");
+    rd.rssi = 0;
 }
 
 int main(int argc, char *argv[])
