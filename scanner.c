@@ -87,12 +87,12 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     {
         get_radio_parameters(packet, header->len);
         get_frame_parameters(packet, header);
+        addRowData();
     }
     else
     {
         printf("Eroare la captura ...");
     }
-    addRowData();
 }
 
 void get_radio_parameters(const u_char *packet, int len)
