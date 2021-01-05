@@ -108,3 +108,4 @@ int currentChannel;             //canalul pe care este setata placa wireless
 int cap_packet_counter = 0;     //numarul de pachete capturate
 int breakwhileloop = 1;         //folosit la intreruperea buclei while din main()
 int direction;                  //valorile ToDS/FromDS
+int doNotRecord = 0;            // daca este 1 atunci nu se inregistreaza in BD

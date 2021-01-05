@@ -87,7 +87,15 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     {
         get_radio_parameters(packet, header->len);
         get_frame_parameters(packet, header);
-        addRowData();
+        if(doNotRecord == 0)
+        {
+            addRowData();
+        }
+        else
+        {
+            doNotRecord = 0;
+        }
+        
     }
     else
     {
@@ -134,6 +142,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
     if (header->caplen < sizeof(struct ieee80211_radiotap_header))
     {
         //printf("Problema 1 ---------------------------------------------------\n");
+        doNotRecord = 1;
     }
     else
     {
@@ -141,6 +150,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
         if (header->caplen < radiotap->it_len + sizeof(struct mgmt_header_t))
         {
             //printf("Problema 2 ---------------------------------------------------\n");
+            doNotRecord = 1;
         }
         else
         {
