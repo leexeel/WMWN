@@ -22,6 +22,7 @@ int SnifferStart(pcap_t *handle);
 int SnifferClose(pcap_t *handle);
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void get_radio_parameters(const u_char *packet, int len);
+void get_frame_parameters(const u_char *packet, int len);
 int getChannel(char *tmpString, int tmpSize);
 int getChannelsNumber(char *tmpString, int tmpSize);
 void SIGINThandler(int sigalnr);
@@ -133,8 +134,8 @@ void get_radio_parameters(const u_char *packet, int len)
 
 void get_frame_parameters(const u_char *packet, int len)
 {
-    struct radiotap_header *radiotap = (struct radiotap_header *) (packet);
-    struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *) (packet + radiotap->it_len);
+    struct radiotap_header *radiotap = (struct radiotap_header *)packet;
+    struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
 
     printf("SA MAC:%u\n",mgmt_frame->sa);
 
