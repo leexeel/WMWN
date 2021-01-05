@@ -7,7 +7,7 @@
 
 void mysqlServerConn(int operatiune){
     if(operatiune == 1){
-        char *server = "192.168.10.66";
+        char *server = "192.168.10.17";
         char *user = "senzor";
         char *password = "senzor@db1234";
         char *database = "serverDB";
