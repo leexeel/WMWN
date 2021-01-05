@@ -158,7 +158,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
         else
         {
             struct mgmt_header_t *mgmt_frame = (struct mgmt_header_t *)(packet + radiotap->it_len);
-            printf("SA MAC:x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n", mgmt_frame->da[0],mgmt_frame->da[1],mgmt_frame->da[2],mgmt_frame->da[3],mgmt_frame->da[4],mgmt_frame->da[5],mgmt_frame->sa[0],mgmt_frame->sa[1],mgmt_frame->sa[2],mgmt_frame->sa[3],mgmt_frame->sa[4],mgmt_frame->sa[5]);
+            printf("SA MAC:%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n", mgmt_frame->da[0],mgmt_frame->da[1],mgmt_frame->da[2],mgmt_frame->da[3],mgmt_frame->da[4],mgmt_frame->da[5],mgmt_frame->sa[0],mgmt_frame->sa[1],mgmt_frame->sa[2],mgmt_frame->sa[3],mgmt_frame->sa[4],mgmt_frame->sa[5]);
         }
     }
     
