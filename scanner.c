@@ -113,10 +113,10 @@ void get_radio_parameters(const u_char *packet, int len)
         printf("INDEX after:%i\n",next_arg_index);
         switch (iterator.this_arg_index)
         {
-        /*case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
+        case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
             rssi_dbm = *iterator.this_arg;
             printf("RSSI DBM:%i\n", rssi_dbm);
-            break;*/
+            break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
             noise_dbm = *iterator.this_arg;
             printf("Noise DBM:%i\n", noise_dbm);
