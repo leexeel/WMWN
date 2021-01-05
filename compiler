@@ -1,2 +1,5 @@
 #!/bin/bash
+
+echo "Incepem compilarea ..."
 gcc scanner.c -o wrlsScan -lpcap
+echo "... Done"
