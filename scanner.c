@@ -373,6 +373,8 @@ void addRowData()
     char rssiChar[4];
     sprintf(rssiChar, "%d", rd.rssi);
     //printf("rssi numeric %d - rssi caracter %s\n", rd.rssi, rssiChar);
+    char directionChar[4];
+    sprintf(directionChar, "%d", direction);
 
     //generam comanda pentru mysql
     char query[1024] = "";
@@ -381,6 +383,8 @@ void addRowData()
     strcat(query, "\",\"");
     strcat(query, rd.frameSubtype);
     strcat(query, "\",");
+    strcat(query,directionChar);
+    strcat(query,",")
     strcat(query, currentChannelChar);
     strcat(query, ",");
     //strcat(query, apCurrentChannelChar);
