@@ -21,7 +21,7 @@ pcap_t *cardInit(char *dev);
 int SnifferStart(pcap_t *handle);
 int SnifferClose(pcap_t *handle);
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
-void print_packet_info(const u_char *packet, struct pcap_pkthdr packet_header);
+void get_radio_parameters(const u_char *packet, int len);
 int getChannel(char *tmpString, int tmpSize);
 int getChannelsNumber(char *tmpString, int tmpSize);
 void SIGINThandler(int sigalnr);
@@ -87,7 +87,6 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     //printf("procesam pachet\n");
     //print_packet_info(packet, *header);
     cap_packet_counter++;
-    int8_t rssi = 0;
     if (header != 0 && packet != 0)
     {
         //printf("Lungime header:%d Lungime captura:%d\n", header->len, header->caplen);
@@ -115,22 +114,22 @@ void get_radio_parameters(const u_char *packet, int len)
         switch (iterator.this_arg_inde)
         {
         case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
-            rssi_dbm = *iterator.this_arg;
+            int8_t rssi_dbm = *iterator.this_arg;
             status = 0;
             printf("RSSI DBM:%i\n", rssi_dbm);
             break;
         case IEEE80211_RADIOTAP_DBM_ANTNOISE:
-            noise_dbm = *iterator.this_arg;
+            int8_t noise_dbm = *iterator.this_arg;
             status = 0;
             printf("Noise DBM:%i\n", noise_dbm);
             break;
         case IEEE80211_RADIOTAP_DB_ANTSIGNAL:
-            rssi_db = *iterator.this_arg;
+            int8_t rssi_db = *iterator.this_arg;
             status = 0;
             printf("RSSI DB:%i\n", rssi_db);
             break;
         case IEEE80211_RADIOTAP_DB_ANTNOISE:
-            noise_db = *iterator.this_arg;
+            int8_t noise_db = *iterator.this_arg;
             status = 0;
             printf("Noise DB:%i\n", noise_db);
             break;
@@ -138,12 +137,6 @@ void get_radio_parameters(const u_char *packet, int len)
             break;
         }
     } while (next_arg_index >= 0);
-}
-
-void print_packet_info(const u_char *packet, struct pcap_pkthdr packet_header)
-{
-    printf("Packet capture length: %d\n", packet_header.caplen);
-    printf("Packet total length %d\n", packet_header.len);
 }
 
 void initChannelsList()
