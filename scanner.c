@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <signal.h>
+#include "radiotap-parser.h"
 
 pcap_t *handle;
 char *adapter=(char *)"mon0";   //placa wireless in mod monitorizare
@@ -13,7 +14,7 @@ int scanningTime;               // periaoada de scanare pentru un canal, in secu
 int *channelsArray;             //lista canalelor suportate
 int channelsNumber;             //numarul de canale suportate
 int currentChannel;             //canalul pe care este setata placa wireless
-int capture_packet_counter=0;   //numarul de pachete capturate
+int cap_packet_counter=0;       //numarul de pachete capturate
 int breakwhileloop=1;           //folosit la intreruperea buclei while din main()
 
 pcap_t * cardInit(char *dev);
@@ -78,25 +79,12 @@ void SnifferTerminate(int signum){
 void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char *packet){
     //printf("procesam pachet\n");
     //print_packet_info(packet, *header);
-    struct ieee80211_radiotap_iterator iterator;
-    int ret = ieee80211_radiotap_iterator_init(&iterator, packet, header.len);
-    while (!ret) {
-        ret = ieee80211_radiotap_iterator_next(&iterator);
-        if (ret)
-            continue;
-        switch (iterator.this_arg_index){
-            case IEEE80211_RADIOTAP_CHANNEL:
-                printf("IEEE80211_RADIOTAP_CHANNEL\n");
-                break;
-            case IEEE80211_RADIOTAP_DBM_ANTSIGNAL:
-                printf("IEEE80211_RADIOTAP_DBM_ANTSIGNAL\n");
-                break;
-            case IEEE80211_RADIOTAP_DBM_ANTNOISE:
-                printf("IEEE80211_RADIOTAP_DBM_ANTNOISE\n");
-                break;
-            default:
-                break;
-        }
+    cap_packet_counter++;
+    if(header!=0 && packet!=0){
+        printf("Lungime header:%d Lungime captura:%d",header->len, header->caplen);
+    } else {
+        printf("Eroare la captura ...");
+    }
     }
     return;
 }
@@ -275,7 +263,7 @@ int main( int argc, char *argv[] ){
         //printf("Control variabile: Index canale:%d Numar Canale:%d Break Loop:%d Index Loop:%d\n",indexChannel,channelsNumber,breakwhileloop,indexLoop);
     }
     SnifferClose(handle);
-    printf("Numarul de pachete analizate este:%d\n", capture_packet_counter);
+    printf("Numarul de pachete analizate este:%d\n", cap_packet_counter);
     return 0;
 
 }
