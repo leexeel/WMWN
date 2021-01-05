@@ -52,7 +52,7 @@ struct raw_data {
 } raw_data;
 
 pcap_t *handle;
-raw_data rd;
+struct raw_data rd;
 char *adapter = (char *)"mon0"; //placa wireless in mod monitorizare
 int maxIndexLoop;               // numarul maxim de scanari
 int scanningTime;               // periaoada de scanare pentru un canal, in secunde
