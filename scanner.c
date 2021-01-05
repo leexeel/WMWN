@@ -328,7 +328,8 @@ void SIGINThandler(int sigalnr)
 
 void initRawData()
 {
-    strcpy(rd.typeFrame,"");
+    strcpy(rd.frameType,"");
+    strcpy(rd.frameSubtype,"");
     rd.direction=0;
     rd.channel=0;
     rd.apChannel=0;
