@@ -14,7 +14,7 @@ void mysqlServerConn(int operatiune){
         connServer = mysql_init(NULL);
         printf("ne conectam la DB server");
         if (!mysql_real_connect(connServer, server, user, password, database, 0, NULL, 0)){
-            prinf("eroare la server");
+            printf("eroare la server");
             fprintf(stderr, "%s\n", mysql_error(connServer));
             serverAvailable = 0;
             //exit(1);
