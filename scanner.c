@@ -429,7 +429,7 @@ int main(int argc, char *argv[])
         maxIndexLoop = 1;
         scanningTime = 1;
     }
-
+    mysqlConn(1);
     initChannelsList();
     int indexLoop = 0;
     int indexChannel = 0;
