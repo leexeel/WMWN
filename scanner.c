@@ -380,7 +380,7 @@ void addRowData()
     strcat(query, rd.frameType);
     strcat(query, "\",\"");
     strcat(query, rd.frameSubtype);
-    strcat(query, "\",);
+    strcat(query, "\",");
     strcat(query, currentChannelChar);
     strcat(query, ",");
     //strcat(query, apCurrentChannelChar);
