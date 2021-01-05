@@ -67,9 +67,9 @@ Address 4 = Source
 
 enum FromToDS
 {
-    Adhoc = 0;
-    FromDS = 1;
-    ToDS = 2;
+    Adhoc = 0,
+    FromDS = 1,
+    ToDS = 2
 };
 
 struct raw_data {
