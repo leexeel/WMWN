@@ -181,12 +181,24 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                 {
                 case ProbeRequest:
                     strcpy(rd.frameSubtype, "ProbeRequest");
+                    uint8_t location = packet + radiotap->len + sizeof(struct mgmt_header_t);
+                    printf("Element ID: %u Element Length: %u\n",packet[location],packet[location+1]);
+                    {
+                        /* data */
+                    };
+                    )
                     break;
                 case ProbeResponse:
                     strcpy(rd.frameSubtype, "ProbeResponse");
                     break;
                 case Beacon:
                     strcpy(rd.frameSubtype, "Beacon");
+                    break;
+                case AssociationRequest:
+                    strcpy(rd.frameSubtype, "AssociationRequest");
+                    break;
+                case AssociationResponse:
+                    strcpy(rd.frameSubtype, "AssociationResponse");
                     break;
                 default:
                     break;
