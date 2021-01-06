@@ -97,6 +97,7 @@ struct raw_data {
 	char ssid[32];
 	char summaryHash[45];
 	int rssi;
+    int apChannel2;
 } raw_data;
 
 pcap_t *handle;
