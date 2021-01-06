@@ -131,9 +131,9 @@ void get_radio_parameters(const u_char *packet, int len)
             //printf("Noise DB:%i\n", noise_db);
             break;
         case IEEE80211_RADIOTAP_CHANNEL:
-            int8_t tmp1,tmp2;
-            tmp1 = *iterator.this_arg;
-            tmp2 = *(iterator.this_arg + 1);
+//            int8_t tmp1,tmp2;
+            int8_t tmp1 = *iterator.this_arg;
+            int8_t tmp2 = *(iterator.this_arg + 1);
             printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", tmp2, tmp1, tmp2 * 256 + tmp1);
             rd.apChannel = tmp2 * 256 + tmp1;
             break;
