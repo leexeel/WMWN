@@ -190,7 +190,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
 
                     const u_char *location, *length;
 
-                    location = packet + radiotap->it_len + 24;
+                    location = packet + radiotap->it_len + 36;
                     length = location + 1;
                     
                     char *ssid = malloc(33);
