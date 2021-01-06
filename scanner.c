@@ -18,6 +18,7 @@ void get_radio_parameters(const u_char *packet, int len);
 void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header);
 int getChannel(char *tmpString, int tmpSize);
 int getChannelsNumber(char *tmpString, int tmpSize);
+void getChannelName(int channel);
 void SIGINThandler(int sigalnr);
 void SnifferTerminate(int signum);
 void initRawData();
@@ -132,12 +133,12 @@ void get_radio_parameters(const u_char *packet, int len)
             noise_db = *iterator.this_arg;
             //printf("Noise DB:%i\n", noise_db);
             break;
-        case IEEE80211_RADIOTAP_CHANNEL:
-            
+        case IEEE80211_RADIOTAP_CHANNEL: 
             channel1 = *iterator.this_arg;
             channel2 = *(iterator.this_arg + 1);
             printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", channel2, channel1, channel2 * 256 + channel1);
             rd.apChannel = channel2 * 256 + channel1;
+            getChannelName(rd.apChannel);
             break;
         default:
             break;
@@ -336,6 +337,232 @@ int getChannelsNumber(char *tmpString, int tmpSize)
     int intChannelsNumber = atoi(tmpChannelsNumber);
     //printf("numarul de canale este %s sau %d\n",tmpChannelsNumber,intChannelsNumber);
     return intChannelsNumber;
+}
+
+void getChannelName(int channel)
+{
+    switch (channel)
+    {
+    case 2412:
+        rd.apChannel=1;
+        break;
+    case 2417:
+        rd.apChannel=2;
+        break;
+    case 2422:
+        rd.apChannel=3;
+        break;
+    case 2427:
+        rd.apChannel=4;
+        break;
+    case 2432:
+        rd.apChannel=5;
+        break;
+    case 2437:
+        rd.apChannel=6;
+        break;
+    case 2442:
+        rd.apChannel=7;
+        break;
+    case 2447:
+        rd.apChannel=8;
+        break;
+    case 2452:
+        rd.apChannel=9;
+        break;
+    case 2457:
+        rd.apChannel=10;
+        break;
+    case 2462:
+        rd.apChannel=11;
+        break;
+    case 2467:
+        rd.apChannel=12;
+        break;
+    case 2472:
+        rd.apChannel=13;
+        break;
+    case 5160:
+        rd.apChannel=32;
+        break;
+    case 5170:
+        rd.apChannel=34;
+        break;
+    case 5180:
+        rd.apChannel=36;
+        break;
+    case 5190:
+        rd.apChannel=38;
+        break;
+    case 5200:
+        rd.apChannel=40;
+        break;
+    case 5210:
+        rd.apChannel=42;
+        break;
+    case 5220:
+        rd.apChannel=44;
+        break;
+    case 5230:
+        rd.apChannel=46;
+        break;
+    case 5240:
+        rd.apChannel=48;
+        break;
+    case 5250:
+        rd.apChannel=50;
+        break;
+    case 5260:
+        rd.apChannel=52;
+        break;
+    case 5270:
+        rd.apChannel=54;
+        break;
+    case 5280:
+        rd.apChannel=56;
+        break;
+    case 5290:
+        rd.apChannel=58;
+        break;
+    case 5300:
+        rd.apChannel=60;
+        break;
+    case 5310:
+        rd.apChannel=62;
+        break;
+    case 5320:
+        rd.apChannel=64;
+        break;
+    case 5340:
+        rd.apChannel=68;
+        break;
+    case 5480:
+        rd.apChannel=96;
+        break;
+    case 5500:
+        rd.apChannel=100;
+        break;
+    case 5510:
+        rd.apChannel=102;
+        break;
+    case 5520:
+        rd.apChannel=104;
+        break;
+    case 5530:
+        rd.apChannel=106;
+        break;
+    case 5540:
+        rd.apChannel=108;
+        break;
+    case 5550:
+        rd.apChannel=110;
+        break;
+    case 5560:
+        rd.apChannel=112;
+        break;
+    case 5570:
+        rd.apChannel=114;
+        break;
+    case 5580:
+        rd.apChannel=116;
+        break;
+    case 5590:
+        rd.apChannel=118;
+        break;
+    case 5600:
+        rd.apChannel=120;
+        break;
+    case 5610:
+        rd.apChannel=122;
+        break;
+    case 5620:
+        rd.apChannel=124;
+        break;
+    case 5630:
+        rd.apChannel=126;
+        break;
+    case 5640:
+        rd.apChannel=128;
+        break;
+    case 5660:
+        rd.apChannel=132;
+        break;
+    case 5670:
+        rd.apChannel=134;
+        break;
+    case 5680:
+        rd.apChannel=136;
+        break;
+    case 5690:
+        rd.apChannel=138;
+        break;
+    case 5700:
+        rd.apChannel=140;
+        break;
+    case 5710:
+        rd.apChannel=142;
+        break;
+    case 5720:
+        rd.apChannel=144;
+        break;
+    case 5745:
+        rd.apChannel=149;
+        break;
+    case 5755:
+        rd.apChannel=151;
+        break;
+    case 5765:
+        rd.apChannel=153;
+        break;
+    case 5775:
+        rd.apChannel=155;
+        break;
+    case 5785:
+        rd.apChannel=157;
+        break;
+    case 5795:
+        rd.apChannel=159;
+        break;
+    case 5805:
+        rd.apChannel=161;
+        break;
+    case 5825:
+        rd.apChannel=165;
+        break;
+    case 5845:
+        rd.apChannel=169;
+        break;
+    case 5865:
+        rd.apChannel=173;
+        break;
+    case 4915:
+        rd.apChannel=183;
+        break;
+    case 4920:
+        rd.apChannel=184;
+        break;
+    case 4925:
+        rd.apChannel=185;
+        break;
+    case 4935:
+        rd.apChannel=187;
+        break;
+    case 4940:
+        rd.apChannel=188;
+        break;
+    case 4945:
+        rd.apChannel=189;
+        break;
+    case 4960:
+        rd.apChannel=192;
+        break;
+    case 4980:
+        rd.apChannel=196;
+        break;
+    default:
+        rd.apChannel=0;
+        break;
+    }
 }
 
 void setChannel(int tmpchannel)
