@@ -187,10 +187,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     break;
                 case Beacon:
                     strcpy(rd.frameSubtype, "Beacon");
-
                     const u_char *location, *length;
-                    //printf("Size %ld",sizeof(struct mgmt_header_t));
-                    //location = packet + radiotap->it_len + 36;
                     /*
                     la calcularea locatiei se aduna 12 octeti:
                     - Timestamp         - 8
@@ -199,7 +196,6 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     */
                     location = packet + radiotap->it_len + sizeof(struct mgmt_header_t) + 12; 
                     length = location + 1;
-                    
                     char *ssid = malloc(33);
                     strncpy(ssid,location+2,*length);
                     ssid[*length]='\0';
