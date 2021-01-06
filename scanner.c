@@ -187,8 +187,11 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     break;
                 case Beacon:
                     strcpy(rd.frameSubtype, "Beacon");
-                    int location = *packet + radiotap->it_len + 24;
-                    int length = location + 1;
+
+                    const u_char *location, *length;
+
+                    location = packet + radiotap->it_len + 24;
+                    length = location + 1;
                     
                     char *ssid = malloc(33);
                     strncpy(ssid,location+2,*length);
