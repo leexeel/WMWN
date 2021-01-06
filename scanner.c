@@ -189,7 +189,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     strcpy(rd.frameSubtype, "Beacon");
 
                     const u_char *location, *length;
-                    printf("Size %d",sizeof(struct mgmt_header_t));
+                    printf("Size %ld",sizeof(struct mgmt_header_t));
                     //location = packet + radiotap->it_len + 36;
                     //location = packet + radiotap->it_len + sizeof(struct mgmt_header_t);
                     //length = location + 1;
