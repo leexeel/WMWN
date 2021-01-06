@@ -181,7 +181,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                 {
                 case ProbeRequest:
                     strcpy(rd.frameSubtype, "ProbeRequest");
-                    uint8_t location = packet + radiotap->it_len + sizeof(struct mgmt_header_t);
+                    int location = packet + radiotap->it_len + sizeof(struct mgmt_header_t);
                     printf("Element ID: %u Element Length: %u\n",packet[location],packet[location+1]);
                     break;
                 case ProbeResponse:
