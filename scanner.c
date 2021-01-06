@@ -135,6 +135,10 @@ void get_radio_parameters(const u_char *packet, int len)
             break;
         case IEEE80211_RADIOTAP_CHANNEL:
             channel1 = *iterator.this_arg;
+            if(channel1 < 0)
+            {
+                channel1 = -channel1;
+            }
             channel2 = *(iterator.this_arg + 1);
             printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", channel2, channel1, channel2 * 256 + channel1);
             rd.apChannel = channel2 * 256 + channel1;
