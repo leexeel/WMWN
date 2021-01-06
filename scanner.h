@@ -9,7 +9,7 @@ struct mgmt_header_t
     uint8_t sa[6];     /* 6 bytes */
     uint8_t bssid[6];  /* 6 bytes */
     uint16_t seq_ctrl; /* 2 bytes */4
-}__attribute__((__packed__));
+};
 
 //#pragma pack(pop)
 struct mgmt_header_t_adhoc

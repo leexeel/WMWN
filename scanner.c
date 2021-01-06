@@ -189,15 +189,15 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     strcpy(rd.frameSubtype, "Beacon");
 
                     const u_char *location, *length;
-
+                    printf("Size %d",sizeof(struct mgmt_header_t));
                     //location = packet + radiotap->it_len + 36;
-                    location = packet + radiotap->it_len + sizeof(struct mgmt_header_t);
-                    length = location + 1;
+                    //location = packet + radiotap->it_len + sizeof(struct mgmt_header_t);
+                    //length = location + 1;
                     
-                    char *ssid = malloc(33);
-                    strncpy(ssid,location+2,*length);
-                    ssid[*length]='\0';
-                    printf("Element ID: %d Element Length: %d SSID:%s\n",*location,*length,ssid);
+                    //char *ssid = malloc(33);
+                    //strncpy(ssid,location+2,*length);
+                    //ssid[*length]='\0';
+                    //printf("Element ID: %d Element Length: %d SSID:%s\n",*location,*length,ssid);
                     break;
                 case AssociationRequest:
                     strcpy(rd.frameSubtype, "AssociationRequest");
