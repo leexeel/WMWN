@@ -106,6 +106,8 @@ void get_radio_parameters(const u_char *packet, int len)
 {
     int status = 0, next_arg_index = 0;
     int8_t rssi_dbm, rssi_db, noise_dbm, noise_db;
+    int8_t channel1,channel2;
+
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
     struct ieee80211_radiotap_iterator iterator;
     status = ieee80211_radiotap_iterator_init(&iterator, header, len);
@@ -131,11 +133,11 @@ void get_radio_parameters(const u_char *packet, int len)
             //printf("Noise DB:%i\n", noise_db);
             break;
         case IEEE80211_RADIOTAP_CHANNEL:
-//            int8_t tmp1,tmp2;
-            int8_t tmp1 = *iterator.this_arg;
-            int8_t tmp2 = *(iterator.this_arg + 1);
-            printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", tmp2, tmp1, tmp2 * 256 + tmp1);
-            rd.apChannel = tmp2 * 256 + tmp1;
+            
+            channel1 = *iterator.this_arg;
+            channel2 = *(iterator.this_arg + 1);
+            printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", channel2, channel1, channel2 * 256 + channel1);
+            rd.apChannel = channel2 * 256 + channel1;
             break;
         default:
             break;
