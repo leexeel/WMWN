@@ -196,7 +196,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     char *ssid = malloc(33);
                     strncpy(ssid,location+2,*length);
                     ssid[*length]='\0';
-                    printf("Location: %d Element ID: %u Element Length: %u SSID:%s\n",location,packet[location],packet[location+1],ssid);
+                    printf("Element ID: %d Element Length: %d SSID:%s\n",location,length,ssid);
                     break;
                 case AssociationRequest:
                     strcpy(rd.frameSubtype, "AssociationRequest");
