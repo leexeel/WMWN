@@ -1,6 +1,6 @@
 #include <pcap/pcap.h>
 
-#pragma pack(push,n)
+//#pragma pack(push,n)
 struct mgmt_header_t
 {
     uint8_t fc[2];     /* 2 bytes */4
@@ -11,7 +11,7 @@ struct mgmt_header_t
     uint16_t seq_ctrl; /* 2 bytes */4
 }__attribute__((__packed__));
 
-#pragma pack(pop)
+//#pragma pack(pop)
 struct mgmt_header_t_adhoc
 {
     uint8_t fc[2];     /* 2 bytes */
