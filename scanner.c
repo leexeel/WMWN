@@ -188,7 +188,12 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                 case Beacon:
                     strcpy(rd.frameSubtype, "Beacon");
                     int location = *packet + radiotap->it_len + 24;
-                    printf("Location: %d Element ID: %u Element Length: %u\n",location,packet[location],packet[location+1]);
+                    int length = location + 1;
+                    
+                    char *ssid = malloc(33);
+                    strncpy(ssid,location+2,*length);
+                    ssid[*length]='\0';
+                    printf("Location: %d Element ID: %u Element Length: %u SSID:%s\n",location,packet[location],packet[location+1],ssid);
                     break;
                 case AssociationRequest:
                     strcpy(rd.frameSubtype, "AssociationRequest");
