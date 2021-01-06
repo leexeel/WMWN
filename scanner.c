@@ -632,8 +632,8 @@ void addRowData()
 {
     char currentChannelChar[4];
     sprintf(currentChannelChar, "%d", currentChannel);
-    //char apCurrentChannelChar[4];
-    //sprintf(apCurrentChannelChar, "%d", rd.apChannel);
+    char apCurrentChannelChar[4];
+    sprintf(apCurrentChannelChar, "%d", rd.apChannel);
     char rssiChar[4];
     sprintf(rssiChar, "%d", rd.rssi);
     char directionChar[4];
@@ -650,8 +650,7 @@ void addRowData()
     strcat(query, ",");
     strcat(query, currentChannelChar);
     strcat(query, ",");
-    //strcat(query, apCurrentChannelChar);
-    strcat(query, "0");
+    strcat(query, apCurrentChannelChar);
     strcat(query, ",\"");
     strcat(query, rd.da);
     strcat(query, "\",\"");
