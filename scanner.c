@@ -560,7 +560,7 @@ void getChannelName(int channel)
         rd.apChannel=196;
         break;
     default:
-        rd.apChannel=0;
+        rd.apChannel=200;
         break;
     }
 }
