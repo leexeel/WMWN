@@ -626,7 +626,7 @@ void initRawData()
     strcpy(rd.ssid, "");
     strcpy(rd.summaryHash, "");
     rd.rssi = 0;
-    apChannel2 = 0;
+    rd.apChannel2 = 0;
 }
 
 void addRowData()
