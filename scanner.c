@@ -107,7 +107,7 @@ void get_radio_parameters(const u_char *packet, int len)
 {
     int status = 0, next_arg_index = 0;
     int8_t rssi_dbm, rssi_db, noise_dbm, noise_db;
-    int8_t channel1, channel2;
+    int16_t channel1, channel2;
 
     struct ieee80211_radiotap_header *header = (struct ieee80211_radiotap_header *)packet;
     struct ieee80211_radiotap_iterator iterator;
