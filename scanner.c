@@ -87,7 +87,7 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
     {
         get_radio_parameters(packet, header->len);
         get_frame_parameters(packet, header);
-        if(doNotRecord == 0)
+        if (doNotRecord == 0)
         {
             addRowData();
         }
@@ -95,7 +95,6 @@ void packet_process(u_char *args, const struct pcap_pkthdr *header, const u_char
         {
             doNotRecord = 0;
         }
-        
     }
     else
     {
@@ -130,6 +129,13 @@ void get_radio_parameters(const u_char *packet, int len)
         case IEEE80211_RADIOTAP_DB_ANTNOISE:
             noise_db = *iterator.this_arg;
             //printf("Noise DB:%i\n", noise_db);
+            break;
+        case IEEE80211_RADIOTAP_CHANNEL:
+            int8_t tmp1,tmp2;
+            tmp1 = *iterator.this_arg;
+            tmp2 = *(iterator.this_arg + 1);
+            printf("IEEE80211_RADIOTAP_CHANNEL : %d * 256 + %d = %d\n", tmp2, tmp1, tmp2 * 256 + tmp1);
+            rd.apChannel = tmp2 * 256 + tmp1;
             break;
         default:
             break;
@@ -194,13 +200,13 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     - Beacon Interval   - 2
                     - Capability info   - 2
                     */
-                    location = packet + radiotap->it_len + sizeof(struct mgmt_header_t) + 12; 
+                    location = packet + radiotap->it_len + sizeof(struct mgmt_header_t) + 12;
                     length = location + 1;
                     char *ssid = malloc(33);
-                    strncpy(ssid,location+2,*length);
-                    ssid[*length]='\0';
-                    strcpy(rd.ssid,ssid);
-                    printf("Element ID: %d Element Length: %d SSID:%s\n",*location,*length,ssid);
+                    strncpy(ssid, location + 2, *length);
+                    ssid[*length] = '\0';
+                    strcpy(rd.ssid, ssid);
+                    //printf("Element ID: %d Element Length: %d SSID:%s\n",*location,*length,ssid);
                     break;
                 case AssociationRequest:
                     strcpy(rd.frameSubtype, "AssociationRequest");
@@ -411,8 +417,8 @@ void addRowData()
     strcat(query, "\",\"");
     strcat(query, rd.frameSubtype);
     strcat(query, "\",");
-    strcat(query,directionChar);
-    strcat(query,",");
+    strcat(query, directionChar);
+    strcat(query, ",");
     strcat(query, currentChannelChar);
     strcat(query, ",");
     //strcat(query, apCurrentChannelChar);
