@@ -187,7 +187,7 @@ void get_frame_parameters(const u_char *packet, const struct pcap_pkthdr *header
                     break;
                 case Beacon:
                     strcpy(rd.frameSubtype, "Beacon");
-                    int location = *packet + radiotap->it_len + sizeof(struct mgmt_header_t);
+                    int location = *packet + radiotap->it_len + 24;
                     printf("Location: %d Element ID: %u Element Length: %u\n",location,packet[location],packet[location+1]);
                     break;
                 case AssociationRequest:
